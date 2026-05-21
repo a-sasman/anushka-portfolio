@@ -1,18 +1,4 @@
 ---
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-
-const assetExists = (assetPath?: string) => {
-	if (!assetPath) {
-		return false;
-	}
-
-	const assetFile = fileURLToPath(new URL(`../../public${assetPath}`, import.meta.url));
-	return existsSync(assetFile);
-};
-
-const projectImageFallback = '/images/project-placeholder.svg';
-
 const projects = [
 	{
 		// Update `title` to change the project name shown in the left list and right card.
@@ -44,7 +30,7 @@ const projects = [
 		description:
 			'A daily L&D question bot designed to spark team reflection, conversation, and learning culture.',
 		tags: ['Power Automate', 'Teams', 'L&D', 'Bot'],
-		image: projectImageFallback,
+		image: '/images/project-placeholder.svg',
 		link: '#'
 	},
 	{
@@ -53,14 +39,13 @@ const projects = [
 		description:
 			'A matching-style interaction designed to make learning more engaging through play and visual feedback.',
 		tags: ['JavaScript', 'UX', 'Gamification', 'Learning'],
-		image: projectImageFallback,
+		image: '/images/project-placeholder.svg',
 		link: '#'
 	}
 ].map((project, index) => {
 	return {
 		...project,
-		number: String(index + 1).padStart(2, '0'),
-		imageExists: assetExists(project.image)
+		number: String(index + 1).padStart(2, '0')
 	};
 });
 
@@ -161,7 +146,7 @@ const totalProjects = String(visibleProjects.length).padStart(2, '0');
 						<div class="grid gap-4 p-4 sm:p-5 lg:grid-cols-[minmax(170px,210px)_minmax(0,1fr)] lg:items-stretch sm:gap-5">
 							<div class="overflow-hidden rounded-[1.25rem] border border-white/10 bg-slate-900/70">
 								<img
-									src={project.imageExists ? project.image : projectImageFallback}
+									src={project.image}
 									alt={`${project.title} preview`}
 									class="h-44 w-full object-cover sm:h-48 lg:h-full lg:min-h-40"
 									loading="lazy"
