@@ -1,0 +1,24 @@
+---
+const navItems = [
+	// Update `label` and `href` here when you add more showcase sections later.
+	{ label: 'Home', href: '#top' },
+	{ label: 'Selected Works', href: '#projects' },
+	{ label: 'Video', href: '#video-creation' }
+];
+---
+
+<nav
+	aria-label="Section navigation"
+	class="fixed inset-x-0 top-4 z-50 flex justify-end px-4 sm:px-6 lg:px-10"
+>
+	<div class="flex flex-wrap items-center justify-end gap-2 rounded-full border border-white/10 bg-slate-950/80 px-2 py-2 shadow-[0_18px_40px_rgba(2,6,23,0.28)] backdrop-blur-md">
+		{navItems.map((item) => (
+			<a
+				href={item.href}
+				class="rounded-full px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+			>
+				{item.label}
+			</a>
+		))}
+	</div>
+</nav>

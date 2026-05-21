@@ -1,0 +1,101 @@
+---
+interface Props {
+	word?: string;
+	subtitle?: string;
+	showSubtitle?: boolean;
+}
+
+const {
+	word = 'VIDEO',
+	subtitle = 'AI Avatar Video Experiences',
+	showSubtitle = true
+} = Astro.props;
+
+// Increase or decrease this number if you want more or fewer repeated words on each track.
+const repeatCount = 8;
+const repeatedWords = Array.from({ length: repeatCount }, () => word.toUpperCase());
+---
+
+<section
+	id="video-creation"
+	class="relative overflow-hidden border-y border-white/10 bg-slate-950 py-8 sm:py-10"
+>
+	<div class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.12),_transparent_28%),radial-gradient(circle_at_85%_18%,_rgba(168,85,247,0.12),_transparent_24%),linear-gradient(180deg,_rgba(2,6,23,1),_rgba(15,23,42,0.96))]"></div>
+	<div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent"></div>
+	<div class="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-fuchsia-300/30 to-transparent"></div>
+
+	<div class="relative">
+		<div class="video-banner-mask relative z-10 overflow-hidden">
+			<div class="video-banner-track flex w-max items-center">
+				<div class="video-banner-group flex items-center" aria-hidden="true">
+					{repeatedWords.map((item, index) => (
+						<span
+							class="mx-4 text-5xl font-black uppercase tracking-[0.3em] text-transparent sm:mx-5 sm:text-6xl lg:text-7xl"
+							style="background-image:linear-gradient(90deg,rgba(103,232,249,0.98),rgba(192,132,252,0.95));background-clip:text;-webkit-background-clip:text;text-shadow:0 0 22px rgba(34,211,238,0.18),0 0 36px rgba(168,85,247,0.14);"
+						>
+							{item}
+							{index < repeatedWords.length - 1 ? <span class="ml-8 text-cyan-200/35">.</span> : null}
+						</span>
+					))}
+				</div>
+
+				<div class="video-banner-group flex items-center" aria-hidden="true">
+					{repeatedWords.map((item, index) => (
+						<span
+							class="mx-4 text-5xl font-black uppercase tracking-[0.3em] text-transparent sm:mx-5 sm:text-6xl lg:text-7xl"
+							style="background-image:linear-gradient(90deg,rgba(103,232,249,0.98),rgba(192,132,252,0.95));background-clip:text;-webkit-background-clip:text;text-shadow:0 0 22px rgba(34,211,238,0.18),0 0 36px rgba(168,85,247,0.14);"
+						>
+							{item}
+							{index < repeatedWords.length - 1 ? <span class="ml-8 text-cyan-200/35">.</span> : null}
+						</span>
+					))}
+				</div>
+			</div>
+		</div>
+
+		{showSubtitle && (
+			<p class="relative z-10 mt-5 px-6 text-center text-sm font-medium uppercase tracking-[0.3em] text-cyan-100/75 sm:text-base">
+				{subtitle}
+			</p>
+		)}
+	</div>
+</section>
+
+<style>
+	.video-banner-mask {
+		mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+		-webkit-mask-image: linear-gradient(
+			to right,
+			transparent 0,
+			black 8%,
+			black 92%,
+			transparent 100%
+		);
+	}
+
+	.video-banner-track {
+		animation: video-banner-scroll 42s linear infinite;
+		will-change: transform;
+	}
+
+	.video-banner-group {
+		flex-shrink: 0;
+	}
+
+	@keyframes video-banner-scroll {
+		from {
+			transform: translateX(0);
+		}
+
+		to {
+			transform: translateX(-50%);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.video-banner-track {
+			animation-duration: 0.01ms;
+			animation-iteration-count: 1;
+		}
+	}
+</style>

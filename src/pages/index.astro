@@ -1,17 +1,28 @@
 ---
-
+import Hero from '../components/Hero.astro';
+import SelectedProjects from '../components/SelectedProjects.astro';
+import AIVideoProjects from '../components/AIVideoProjects.astro';
+import VideoBanner from '../components/VideoBanner.astro';
+import SectionNav from '../components/SectionNav.astro';
+import '../styles/global.css';
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Anushka | AI-Powered Digital Learning Systems</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="overflow-x-hidden bg-slate-950 text-slate-100 antialiased">
+		<SectionNav />
+		<main id="top">
+			<Hero />
+			<SelectedProjects />
+			<VideoBanner word="VIDEO CREATION" />
+			<AIVideoProjects />
+		</main>
 	</body>
 </html>

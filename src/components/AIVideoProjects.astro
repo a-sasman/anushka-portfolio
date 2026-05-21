@@ -1,0 +1,336 @@
+---
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const assetExists = (assetPath?: string) => {
+	if (!assetPath) {
+		return false;
+	}
+
+	const assetFile = fileURLToPath(new URL(`../../public${assetPath}`, import.meta.url));
+	return existsSync(assetFile);
+};
+
+const videos = [
+	{
+		// Update `title` to change the card heading later.
+		title: 'What is Gen AI?',
+		// Update `description` to change the supporting copy later.
+		description:
+			'Crafted video to simplify generative AI concepts and drive business understanding.',
+		// Update `tags` to change the category pills later.
+		tags: ['Adoption', 'Gen AI Learning', 'Implementation'],
+		// Update `image` to point to your thumbnail inside `public/images`.
+		image: '/images/video-avatar-explainer.png',
+		// Update `video` to point to your MP4 inside `public/videos`.
+		video: '/videos/what-is-generative-ai-optimized.mp4',
+		// Update `link` to your live video, case study, or hosted page later.
+		link: '/videos/what-is-generative-ai-optimized.mp4'
+	},
+	{
+		title: 'The hi Way Customer Journey',
+		description:
+			"An AI avatar-led explainer video designed to walk through the 8 powerful steps that shape every customer's journey in store.",
+		tags: ['AI Avatar', 'Help Customers', 'Sales Representative'],
+		image: '/images/video-compliance-training.png',
+		video: '/videos/hi-mobile-induction-optimized.mp4',
+		link: '/videos/hi-mobile-induction-optimized.mp4'
+	},
+	{
+		title: 'Microlearning Video',
+		description:
+			'A short-form learning video designed for quick knowledge transfer and learner engagement.',
+		tags: ['Microlearning', 'Digital Learning', 'Synthesia'],
+		image: '/images/video-microlearning.png',
+		video: '/videos/nike-structure-26-supportive-cushioning-redefined.mp4',
+		link: '/videos/nike-structure-26-supportive-cushioning-redefined.mp4'
+	},
+	{
+		title: 'Love Learning',
+		description:
+			'A video explaining what LoveLearning is and how to run short engaging sessions in store with employees.',
+		tags: ['engaging', 'learning', 'micro session'],
+		image: '',
+		video: '/videos/love-learning.mp4',
+		link: '/videos/love-learning.mp4'
+	},
+	{
+		title: 'Africa Community Media',
+		description:
+			'Video creation using Synthesia to present the ACM content strategy high level plan visually.',
+		tags: ['media', 'digital', 'content plan', 'ai avatar'],
+		image: '',
+		video: '/videos/africa-community-media.mp4',
+		link: '/videos/africa-community-media.mp4'
+	},
+	{
+		title: '3D Personalised Robotic Render',
+		description: 'Creation of an AI learning mascot.',
+		tags: ['3D', 'AI mascot', 'learning', 'robotic render'],
+		image: '',
+		video: '/videos/3d-personalised-robotic-render.mp4',
+		link: '/videos/3d-personalised-robotic-render.mp4'
+	}
+].map((video, index) => {
+	return {
+		...video,
+		number: String(index + 1).padStart(2, '0'),
+		imageExists: assetExists(video.image),
+		videoExists: assetExists(video.video)
+	};
+});
+---
+
+<section
+	id="ai-video-projects"
+	class="relative overflow-hidden border-t border-white/10 bg-slate-950 px-6 py-24 sm:px-8 lg:px-12"
+>
+	<div class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.09),_transparent_24%),radial-gradient(circle_at_82%_16%,_rgba(59,130,246,0.14),_transparent_22%),radial-gradient(circle_at_50%_100%,_rgba(14,165,233,0.1),_transparent_26%),linear-gradient(180deg,_rgba(2,6,23,1),_rgba(15,23,42,0.96))]"></div>
+	<div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent"></div>
+	<div class="absolute right-0 top-24 -z-10 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl"></div>
+
+	<div class="mx-auto max-w-7xl">
+		<div class="max-w-3xl">
+			<p class="text-sm font-medium uppercase tracking-[0.35em] text-cyan-200/70">
+				Synthesia Avatar-Based Learning
+			</p>
+			<h2 class="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+				AI Video Projects
+			</h2>
+			<p class="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+				I transform human-led presentations into lifelike AI avatar experiences,
+				enabling scalable and engaging digital learning at speed.
+			</p>
+		</div>
+
+		<div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+			{videos.map((video) => (
+				<article
+					class="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(2,8,23,0.45)] backdrop-blur-sm transition duration-300 hover:-translate-y-1.5 hover:border-cyan-300/30 hover:bg-white/[0.06]"
+				>
+					{video.videoExists ? (
+						<button
+							type="button"
+							data-video-open
+							data-video-src={video.video}
+							data-video-title={video.title}
+							aria-label={`Play ${video.title}`}
+							class="relative block overflow-hidden border-b border-white/10 bg-slate-900/70 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-inset"
+						>
+							<video
+								src={video.video}
+								poster={video.imageExists ? video.image : undefined}
+								class="h-60 w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+								autoplay
+								muted
+								loop
+								playsinline
+								preload="metadata"
+							>
+								Your browser does not support the video tag.
+							</video>
+
+							<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
+
+							<div class="absolute inset-0 flex items-center justify-center">
+								<div
+									class="flex h-16 w-16 items-center justify-center rounded-full border border-cyan-200/40 bg-slate-950/70 text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.18)] transition duration-300 group-hover:scale-105 group-hover:border-cyan-100/70 group-hover:shadow-[0_0_36px_rgba(34,211,238,0.3)]"
+								>
+									<svg
+										viewBox="0 0 24 24"
+										aria-hidden="true"
+										class="ml-1 h-6 w-6 fill-current"
+									>
+										<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
+									</svg>
+								</div>
+							</div>
+
+							<p class="absolute left-6 top-6 text-xs font-medium uppercase tracking-[0.3em] text-cyan-100/75">
+								{video.number}
+							</p>
+						</button>
+					) : (
+						<div class="relative overflow-hidden border-b border-white/10 bg-slate-900/70">
+							{video.imageExists ? (
+								<img
+									src={video.image}
+									alt={`${video.title} thumbnail`}
+									class="h-60 w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+									loading="lazy"
+									decoding="async"
+								/>
+							) : (
+								<div class="flex h-60 w-full items-end bg-[linear-gradient(145deg,_rgba(8,145,178,0.28),_rgba(15,23,42,0.94)_58%,_rgba(14,165,233,0.22))] p-6">
+									<div>
+										<p class="text-xs font-medium uppercase tracking-[0.35em] text-cyan-100/70">
+											Thumbnail Placeholder
+										</p>
+										<p class="mt-3 max-w-[14rem] text-xl font-semibold text-white">
+											{video.title}
+										</p>
+									</div>
+								</div>
+							)}
+
+							<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
+
+							<div class="absolute inset-0 flex items-center justify-center">
+								<div
+									class="flex h-16 w-16 items-center justify-center rounded-full border border-cyan-200/40 bg-slate-950/70 text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.18)] transition duration-300 group-hover:scale-105 group-hover:border-cyan-100/70 group-hover:shadow-[0_0_36px_rgba(34,211,238,0.3)]"
+								>
+									<svg
+										viewBox="0 0 24 24"
+										aria-hidden="true"
+										class="ml-1 h-6 w-6 fill-current"
+									>
+										<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
+									</svg>
+								</div>
+							</div>
+
+							<p class="absolute left-6 top-6 text-xs font-medium uppercase tracking-[0.3em] text-cyan-100/75">
+								{video.number}
+							</p>
+						</div>
+					)}
+
+					<div class="flex flex-1 flex-col p-6">
+						<h3 class="text-2xl font-semibold tracking-tight text-white">{video.title}</h3>
+						<p class="mt-4 text-base leading-7 text-slate-300">{video.description}</p>
+
+						<div class="mt-6 flex flex-wrap gap-3">
+							{video.tags.map((tag) => (
+								<span class="rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-cyan-100/80">
+									{tag}
+								</span>
+							))}
+						</div>
+
+						<div class="mt-auto pt-8">
+							{video.videoExists ? (
+								<button
+									type="button"
+									data-video-open
+									data-video-src={video.video}
+									data-video-title={video.title}
+									class="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-50 shadow-[0_0_24px_rgba(34,211,238,0.14)] transition duration-300 hover:border-cyan-200/70 hover:bg-cyan-300/15 hover:shadow-[0_0_36px_rgba(34,211,238,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+								>
+									View Video
+								</button>
+							) : (
+								<a
+									href={video.link}
+									class="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-50 shadow-[0_0_24px_rgba(34,211,238,0.14)] transition duration-300 hover:border-cyan-200/70 hover:bg-cyan-300/15 hover:shadow-[0_0_36px_rgba(34,211,238,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+								>
+									View Video
+								</a>
+							)}
+						</div>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+
+	<div
+		data-video-modal
+		class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 opacity-0 backdrop-blur-md transition duration-300"
+		aria-hidden="true"
+	>
+		<div class="absolute inset-0" data-video-close></div>
+
+		<div class="relative z-10 w-full max-w-4xl rounded-[2rem] border border-white/10 bg-slate-950/95 p-4 shadow-[0_24px_80px_rgba(2,8,23,0.7)] sm:p-5">
+			<div class="mb-4 flex items-center justify-between gap-4">
+				<p data-video-modal-title class="text-sm font-medium uppercase tracking-[0.3em] text-cyan-100/75">
+					Video Playback
+				</p>
+
+				<button
+					type="button"
+					data-video-close
+					class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition duration-300 hover:border-cyan-200/40 hover:text-cyan-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+					aria-label="Close video popup"
+				>
+					<span aria-hidden="true" class="text-xl leading-none">&times;</span>
+				</button>
+			</div>
+
+			<div class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black">
+				<video
+					data-modal-video
+					class="aspect-video w-full bg-black"
+					controls
+					playsinline
+					preload="metadata"
+				>
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	const aiVideoSection = document.querySelector('#ai-video-projects');
+
+	if (aiVideoSection) {
+		const modal = aiVideoSection.querySelector('[data-video-modal]');
+		const modalVideo = aiVideoSection.querySelector('[data-modal-video]');
+		const modalTitle = aiVideoSection.querySelector('[data-video-modal-title]');
+		const openButtons = Array.from(aiVideoSection.querySelectorAll('[data-video-open]'));
+		const closeButtons = Array.from(aiVideoSection.querySelectorAll('[data-video-close]'));
+
+		if (
+			modal instanceof HTMLElement &&
+			modalVideo instanceof HTMLVideoElement &&
+			modalTitle instanceof HTMLElement
+		) {
+			const openModal = (src, title) => {
+				modal.classList.remove('pointer-events-none', 'opacity-0');
+				modal.classList.add('opacity-100');
+				modal.setAttribute('aria-hidden', 'false');
+				modalTitle.textContent = title;
+				modalVideo.src = src;
+				modalVideo.currentTime = 0;
+				void modalVideo.play().catch(() => {});
+				document.body.classList.add('overflow-hidden');
+			};
+
+			const closeModal = () => {
+				modal.classList.add('pointer-events-none', 'opacity-0');
+				modal.classList.remove('opacity-100');
+				modal.setAttribute('aria-hidden', 'true');
+				modalVideo.pause();
+				modalVideo.removeAttribute('src');
+				modalVideo.load();
+				document.body.classList.remove('overflow-hidden');
+			};
+
+			openButtons.forEach((button) => {
+				button.addEventListener('click', () => {
+					const src = button.getAttribute('data-video-src');
+					const title = button.getAttribute('data-video-title') || 'Video Playback';
+
+					if (!src) return;
+					openModal(src, title);
+				});
+			});
+
+			closeButtons.forEach((button) => {
+				button.addEventListener('click', closeModal);
+			});
+
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+					closeModal();
+				}
+			});
+
+			modalVideo.addEventListener('ended', closeModal);
+			window.addEventListener('beforeunload', () => {
+				modalVideo.pause();
+			});
+		}
+	}
+</script>

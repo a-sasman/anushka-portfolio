@@ -1,0 +1,79 @@
+---
+const projectsHref = '#projects';
+---
+
+<section class="relative isolate overflow-hidden bg-slate-950 text-slate-100">
+	<div class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.18),_transparent_30%),radial-gradient(circle_at_85%_18%,_rgba(168,85,247,0.22),_transparent_24%),radial-gradient(circle_at_50%_100%,_rgba(59,130,246,0.18),_transparent_26%),linear-gradient(135deg,_#020617_0%,_#0f172a_52%,_#020617_100%)]"></div>
+	<div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent"></div>
+	<div class="absolute left-1/2 top-28 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl"></div>
+
+	<div class="mx-auto flex min-h-screen max-w-7xl items-center px-6 py-16 sm:px-8 lg:px-12">
+		<div class="grid w-full gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(420px,620px)] lg:items-center">
+			<div class="max-w-2xl">
+				<p class="text-sm font-medium uppercase tracking-[0.45em] text-cyan-200/80 sm:text-base">I'm</p>
+				<h1 class="mt-4 text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+					Anushka.
+				</h1>
+				<p class="mt-6 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">
+					I build AI-powered digital learning systems that scale.
+				</p>
+
+				<div class="mt-10 flex flex-wrap items-center gap-4">
+					<a
+						href={projectsHref}
+						class="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-6 py-3 text-sm font-semibold text-cyan-50 shadow-[0_0_30px_rgba(34,211,238,0.18)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/50 hover:bg-cyan-300/15 hover:shadow-[0_0_40px_rgba(34,211,238,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+					>
+						View Work
+					</a>
+				</div>
+			</div>
+
+			<div class="hero-visual relative mx-auto w-full max-w-2xl lg:max-w-none">
+				<div class="absolute inset-6 rounded-[2.5rem] bg-gradient-to-br from-cyan-400/15 via-transparent to-fuchsia-500/15 blur-3xl"></div>
+				<div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/55 p-4 shadow-[0_20px_80px_rgba(2,8,23,0.75)] backdrop-blur-xl sm:p-6">
+					<div class="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent"></div>
+					<img
+						src="/images/hero-laptop.png"
+						alt="Laptop displaying AI-powered learning system visuals"
+						class="relative z-10 w-full rounded-[1.5rem] object-contain"
+						loading="eager"
+						decoding="async"
+					/>
+
+					<!-- Hotspot position: adjust the desktop `lg:right-[13%]` value below. -->
+					<!-- Hotspot position: adjust the desktop `lg:bottom-[18%]` value below. -->
+					<!-- Hotspot size: adjust the desktop `lg:h-16 lg:w-16` values below. -->
+					<a
+						href={projectsHref}
+						aria-label="Explore projects"
+						class="absolute z-20 hidden items-center justify-center rounded-full border border-cyan-200/60 bg-cyan-300/10 text-cyan-100 shadow-[0_0_30px_rgba(34,211,238,0.35)] backdrop-blur-sm transition duration-300 hover:scale-105 hover:border-cyan-100/80 hover:bg-cyan-200/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-safe:animate-pulse lg:flex lg:right-[13%] lg:bottom-[18%] lg:h-16 lg:w-16"
+					>
+						<span class="h-3 w-3 rounded-full bg-cyan-200 shadow-[0_0_18px_rgba(103,232,249,0.95)]"></span>
+					</a>
+				</div>
+
+				<p class="mt-5 text-center text-sm text-cyan-100/80 sm:text-base">
+					Press Enter to explore projects
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	document.addEventListener('keydown', (event) => {
+		const target = event.target;
+		const isTyping =
+			target instanceof HTMLInputElement ||
+			target instanceof HTMLTextAreaElement ||
+			target instanceof HTMLSelectElement ||
+			target?.isContentEditable;
+
+		if (event.key === 'Enter' && !isTyping) {
+			document.querySelector('#projects')?.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start'
+			});
+		}
+	});
+</script>

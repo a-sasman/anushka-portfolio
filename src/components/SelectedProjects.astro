@@ -1,0 +1,371 @@
+---
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const projects = [
+	{
+		// Update `title` to change the project name shown in the left list and right card.
+		title: 'Brabantia',
+		// Update `categories` to control which category button this project appears under.
+		categories: ['Digital Learning Courses'],
+		// Update `description` to change the supporting copy on the project card.
+		description:
+			'A retail learning course that equips store employees with Brabantia brand knowledge, core product categories, and a practical selling method so they can confidently recommend the right solution to each customer.',
+		// Update `tags` to change the tech/category pills.
+		tags: ['Digital Learning', 'Retail Training', 'Brand Knowledge', 'Sales Enablement'],
+		// Update `image` to point to your real file inside `public/images`.
+		image: '/images/project-brabantia.jpg',
+		// Update `link` to your live project, case study, or detail page later.
+		link: 'https://brabantia-quick-course.netlify.app/'
+	},
+	{
+		title: 'Nike Pegasus Course',
+		categories: ['Digital Learning Courses'],
+		description:
+			'A concept system that transforms course briefs into structured learning experiences using AI-supported workflows.',
+		tags: ['Digital Learning', 'Product Training', 'Retail Learning', 'Course Design'],
+		image: '/images/project-nike-pegasus.jpg',
+		link: 'https://nike-pegasus-24-course.netlify.app/'
+	},
+	{
+		title: 'Curious Bot',
+		categories: ['Learning Automation'],
+		description:
+			'A daily L&D question bot designed to spark team reflection, conversation, and learning culture.',
+		tags: ['Power Automate', 'Teams', 'L&D', 'Bot'],
+		image: '/images/project-curious-bot.png',
+		link: '#'
+	},
+	{
+		title: 'Interactive Learning Game',
+		categories: ['UX Projects'],
+		description:
+			'A matching-style interaction designed to make learning more engaging through play and visual feedback.',
+		tags: ['JavaScript', 'UX', 'Gamification', 'Learning'],
+		image: '/images/project-learning-game.png',
+		link: '#'
+	}
+].map((project, index) => {
+	const imageFile = fileURLToPath(new URL(`../../public${project.image}`, import.meta.url));
+
+	return {
+		...project,
+		number: String(index + 1).padStart(2, '0'),
+		imageExists: existsSync(imageFile)
+	};
+});
+
+// Update this list if you ever want to rename or reorder the visible categories.
+const categoryLabels = [
+	'Digital Learning Courses'
+];
+const defaultCategory = 'Digital Learning Courses';
+const visibleProjects = projects.filter((project) =>
+	project.categories.some((category) => categoryLabels.includes(category))
+);
+const totalProjects = String(visibleProjects.length).padStart(2, '0');
+---
+
+<section
+	id="projects"
+	data-projects-section
+	data-default-category={defaultCategory}
+	class="relative overflow-hidden border-t border-white/10 bg-slate-950 px-6 py-20 sm:px-8 lg:px-12"
+>
+	<div class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.08),_transparent_24%),radial-gradient(circle_at_85%_18%,_rgba(168,85,247,0.12),_transparent_22%),linear-gradient(180deg,_rgba(15,23,42,0.92),_rgba(2,6,23,1))]"></div>
+	<div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent"></div>
+
+	<div class="mx-auto max-w-7xl">
+		<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+			<div class="min-w-0">
+				<p class="text-sm font-medium uppercase tracking-[0.35em] text-cyan-200/70">
+					Portfolio Highlights
+				</p>
+				<div class="selected-works-display mt-4">
+					<h2 class="selected-works-word text-5xl font-semibold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
+						Selected Work
+					</h2>
+					<div class="selected-works-artwork" aria-hidden="true">
+						<img
+							src="/images/selected-works-character-s.png"
+							alt=""
+							class="selected-works-character block h-auto w-full select-none"
+							loading="eager"
+							decoding="async"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<p class="text-sm font-medium tracking-[0.3em] text-slate-400">
+				<span data-visible-count>{totalProjects}</span>
+				<span class="mx-2 text-slate-600">/</span>
+				{totalProjects}
+			</p>
+		</div>
+
+		<div class="mt-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+			<div>
+				<p class="text-base font-semibold tracking-[0.01em] text-white sm:text-lg">
+					Browse by category
+				</p>
+				<p class="mt-1.5 text-base leading-6 text-slate-300 sm:text-[1.05rem]">
+					Select a category to view focused project work.
+				</p>
+			</div>
+
+			<div class="flex flex-wrap gap-2.5">
+				{categoryLabels.map((category, index) => (
+					<button
+						type="button"
+						data-filter-button
+						data-category={category}
+						aria-pressed={category === defaultCategory ? 'true' : 'false'}
+						class="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-300 transition duration-300 hover:border-cyan-200/40 hover:bg-white/[0.04] hover:text-cyan-50 aria-pressed:border-cyan-200/60 aria-pressed:bg-cyan-300/15 aria-pressed:text-cyan-50 aria-pressed:shadow-[0_0_24px_rgba(34,211,238,0.12)]"
+					>
+						{category}
+					</button>
+				))}
+			</div>
+		</div>
+
+		<div class="mt-10 space-y-4">
+			{visibleProjects.map((project) => (
+				<div
+					data-project-item
+					data-categories={project.categories.join('|')}
+					class="grid gap-4 lg:grid-cols-[minmax(220px,30%)_minmax(0,70%)] lg:items-stretch lg:gap-5"
+				>
+					<div class="flex min-w-0 flex-col justify-center pb-1 lg:pr-5">
+						<p class="text-xs font-medium uppercase tracking-[0.22em] text-cyan-200/60">
+							{project.number}
+						</p>
+						<p class="mt-2 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-slate-400">
+							{project.categories[0]}
+						</p>
+						<h3 class="mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+							{project.title}
+						</h3>
+					</div>
+
+					<article class="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-[0_20px_50px_rgba(2,8,23,0.38)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-white/[0.07]">
+						<div class="grid gap-4 p-4 sm:p-5 lg:grid-cols-[minmax(170px,210px)_minmax(0,1fr)] lg:items-stretch sm:gap-5">
+							<div class="overflow-hidden rounded-[1.25rem] border border-white/10 bg-slate-900/70">
+								{project.imageExists ? (
+									<img
+										src={project.image}
+										alt={`${project.title} preview`}
+										class="h-44 w-full object-cover sm:h-48 lg:h-full lg:min-h-40"
+										loading="lazy"
+										decoding="async"
+									/>
+								) : (
+									<div class="flex h-44 items-end bg-[linear-gradient(145deg,_rgba(14,165,233,0.3),_rgba(15,23,42,0.92)_55%,_rgba(168,85,247,0.28))] p-4 sm:h-48 lg:h-full lg:min-h-40">
+										<div>
+											<p class="text-xs font-medium uppercase tracking-[0.35em] text-cyan-100/70">
+												Image Placeholder
+											</p>
+											<p class="mt-3 max-w-[12rem] text-base font-semibold text-white">
+												{project.title}
+											</p>
+										</div>
+									</div>
+								)}
+							</div>
+
+							<div class="flex min-w-0 flex-col justify-between">
+								<div>
+									<p class="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-slate-400">
+										{project.categories.join(' / ')}
+									</p>
+									<p class="project-description mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-[0.95rem]">
+										{project.description}
+									</p>
+
+									<div class="mt-4 flex flex-wrap gap-2">
+										{project.tags.map((tag) => (
+											<span class="rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-[0.68rem] font-medium tracking-[0.14em] text-cyan-100/80 uppercase">
+												{tag}
+											</span>
+										))}
+									</div>
+								</div>
+
+								<div class="mt-5">
+									<a
+										href={project.link}
+										class="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-4 py-2.5 text-sm font-semibold text-cyan-50 shadow-[0_0_24px_rgba(34,211,238,0.14)] transition duration-300 hover:border-cyan-200/60 hover:bg-cyan-300/15 hover:shadow-[0_0_32px_rgba(34,211,238,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+									>
+										View Project
+									</a>
+								</div>
+							</div>
+						</div>
+					</article>
+				</div>
+			))}
+
+			<div
+				data-empty-state
+				class="hidden rounded-[2rem] border border-dashed border-white/10 bg-white/[0.03] px-6 py-10 text-center text-sm text-slate-400"
+			>
+				No projects are assigned to this category yet.
+			</div>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	const section = document.querySelector('[data-projects-section]');
+
+	if (section) {
+		const defaultCategory = section.dataset.defaultCategory || 'Digital Learning Courses';
+		const filterButtons = Array.from(section.querySelectorAll('[data-filter-button]'));
+		const projectRows = Array.from(section.querySelectorAll('[data-project-item]'));
+		const visibleCount = section.querySelector('[data-visible-count]');
+		const emptyState = section.querySelector('[data-empty-state]');
+
+		const updateFilter = (selectedCategory) => {
+			let matches = 0;
+
+			projectRows.forEach((item) => {
+				const categories = (item.dataset.categories || '').split('|').filter(Boolean);
+				const isMatch = categories.includes(selectedCategory);
+
+				item.classList.toggle('hidden', !isMatch);
+
+				if (isMatch) {
+					matches += 1;
+				}
+			});
+
+			if (visibleCount) {
+				visibleCount.textContent = String(matches).padStart(2, '0');
+			}
+
+			if (emptyState) {
+				emptyState.classList.toggle('hidden', matches !== 0);
+			}
+
+			filterButtons.forEach((button) => {
+				button.setAttribute(
+					'aria-pressed',
+					String(button.dataset.category === selectedCategory)
+				);
+			});
+		};
+
+		filterButtons.forEach((button) => {
+			button.addEventListener('click', () => {
+				updateFilter(button.dataset.category || defaultCategory);
+			});
+		});
+
+		updateFilter(defaultCategory);
+	}
+</script>
+
+<style>
+	.project-description {
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+	}
+
+	.selected-works-display {
+		display: inline-flex;
+		align-items: flex-start;
+		gap: 0.35rem;
+		max-width: 100%;
+	}
+
+	.selected-works-word {
+		position: relative;
+		text-shadow: 0 0 26px rgba(255, 255, 255, 0.08);
+		flex-shrink: 1;
+		margin-bottom: 0;
+	}
+
+	.selected-works-artwork {
+		position: relative;
+		flex: none;
+		width: 4.4rem;
+		margin-left: 0.05rem;
+		transform: translateY(-0.1rem);
+		transform-origin: 50% 70%;
+		animation: selected-works-float 7.5s ease-in-out infinite;
+		filter: drop-shadow(0 0 28px rgba(34, 211, 238, 0.16));
+		will-change: transform;
+	}
+
+	.selected-works-character {
+		pointer-events: none;
+	}
+
+	.selected-works-display:hover .selected-works-artwork {
+		animation-name: selected-works-float-hover;
+	}
+
+	@keyframes selected-works-float {
+		0%,
+		100% {
+			transform: translateY(-0.1rem) rotate(0deg);
+		}
+
+		50% {
+			transform: translateY(-0.22rem) rotate(-0.9deg);
+		}
+	}
+
+	@keyframes selected-works-float-hover {
+		0%,
+		100% {
+			transform: translateY(-0.1rem) rotate(0deg);
+		}
+
+		50% {
+			transform: translateY(-0.28rem) rotate(-1.25deg);
+		}
+	}
+
+	@media (min-width: 640px) {
+		.selected-works-display {
+			gap: 0.55rem;
+		}
+
+		.selected-works-artwork {
+			width: 6.6rem;
+			margin-left: 0.1rem;
+			transform: translateY(-0.18rem);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.selected-works-display {
+			gap: 0.75rem;
+		}
+
+		.selected-works-artwork {
+			width: 11.2rem;
+			margin-left: 0.2rem;
+			transform: translateY(-0.85rem);
+			filter: drop-shadow(0 0 32px rgba(34, 211, 238, 0.22));
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.selected-works-artwork {
+			width: 13.2rem;
+			margin-left: 0.25rem;
+			transform: translateY(-1.05rem);
+		}
+	}
+
+	@media (max-width: 640px), (prefers-reduced-motion: reduce) {
+		.selected-works-artwork {
+			animation: none;
+			transform: translateY(-0.1rem);
+		}
+	}
+</style>
