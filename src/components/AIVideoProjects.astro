@@ -1,18 +1,4 @@
 ---
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-
-const assetExists = (assetPath?: string) => {
-	if (!assetPath) {
-		return false;
-	}
-
-	const assetFile = fileURLToPath(new URL(`../../public${assetPath}`, import.meta.url));
-	return existsSync(assetFile);
-};
-
-const videoImageFallback = '/images/video-placeholder.svg';
-
 const videos = [
 	{
 		// Update `title` to change the card heading later.
@@ -34,7 +20,7 @@ const videos = [
 		description:
 			"An AI avatar-led explainer video designed to walk through the 8 powerful steps that shape every customer's journey in store.",
 		tags: ['AI Avatar', 'Help Customers', 'Sales Representative'],
-		image: videoImageFallback,
+		image: '',
 		video: '/videos/hi-mobile-induction-optimized.mp4',
 		link: '/videos/hi-mobile-induction-optimized.mp4'
 	},
@@ -43,16 +29,6 @@ const videos = [
 		description:
 			'A short-form learning video designed for quick knowledge transfer and learner engagement.',
 		tags: ['Microlearning', 'Digital Learning', 'Synthesia'],
-		image: videoImageFallback,
-		video: '/videos/nike-structure-26-supportive-cushioning-redefined.mp4',
-		link: '/videos/nike-structure-26-supportive-cushioning-redefined.mp4'
-	},
-	{
-		title: 'Love Learning',
-		description:
-			'A video explaining what LoveLearning is and how to run short engaging sessions in store with employees.',
-		tags: ['engaging', 'learning', 'micro session'],
-		image: videoImageFallback,
 		video: '/videos/love-learning.mp4',
 		link: '/videos/love-learning.mp4'
 	},
@@ -61,7 +37,7 @@ const videos = [
 		description:
 			'Video creation using Synthesia to present the ACM content strategy high level plan visually.',
 		tags: ['media', 'digital', 'content plan', 'ai avatar'],
-		image: videoImageFallback,
+		image: '',
 		video: '/videos/africa-community-media.mp4',
 		link: '/videos/africa-community-media.mp4'
 	},
@@ -69,18 +45,23 @@ const videos = [
 		title: '3D Personalised Robotic Render',
 		description: 'Creation of an AI learning mascot.',
 		tags: ['3D', 'AI mascot', 'learning', 'robotic render'],
-		image: videoImageFallback,
+		image: '',
 		video: '/videos/3d-personalised-robotic-render.mp4',
 		link: '/videos/3d-personalised-robotic-render.mp4'
+	},
+	{
+		title: 'Nike Structure 26',
+		description:
+			'A short-form learning video designed for quick knowledge transfer and learner engagement.',
+		tags: ['Microlearning', 'Digital Learning', 'Synthesia'],
+		image: '',
+		video: '/videos/nike-structure-26-supportive-cushioning-redefined.mp4',
+		link: '/videos/nike-structure-26-supportive-cushioning-redefined.mp4'
 	}
 ].map((video, index) => {
-	const hasImage = assetExists(video.image);
-
 	return {
 		...video,
-		number: String(index + 1).padStart(2, '0'),
-		videoExists: assetExists(video.video),
-		resolvedImage: hasImage ? video.image : videoImageFallback
+		number: String(index + 1).padStart(2, '0')
 	};
 });
 ---
@@ -112,73 +93,47 @@ const videos = [
 				<article
 					class="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-[0_20px_60px_rgba(2,8,23,0.45)] backdrop-blur-sm transition duration-300 hover:-translate-y-1.5 hover:border-cyan-300/30 hover:bg-white/[0.06]"
 				>
-					{video.videoExists ? (
-						<button
-							type="button"
-							data-video-open
-							data-video-src={video.video}
-							data-video-title={video.title}
-							aria-label={`Play ${video.title}`}
-							class="relative block overflow-hidden border-b border-white/10 bg-slate-900/70 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-inset"
+					<button
+						type="button"
+						data-video-open
+						data-video-src={video.video}
+						data-video-title={video.title}
+						aria-label={`Play ${video.title}`}
+						class="relative block overflow-hidden border-b border-white/10 bg-slate-900/70 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-inset"
+					>
+						<video
+							poster={video.image || undefined}
+							class="h-60 w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+							autoplay
+							muted
+							loop
+							playsinline
+							preload="metadata"
 						>
-							<video
-								src={video.video}
-								poster={video.resolvedImage}
-								class="h-60 w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-								autoplay
-								muted
-								loop
-								playsinline
-								preload="metadata"
+							<source src={video.video} type="video/mp4" />
+							Your browser does not support the video tag.
+						</video>
+
+						<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
+
+						<div class="absolute inset-0 flex items-center justify-center">
+							<div
+								class="flex h-16 w-16 items-center justify-center rounded-full border border-cyan-200/40 bg-slate-950/70 text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.18)] transition duration-300 group-hover:scale-105 group-hover:border-cyan-100/70 group-hover:shadow-[0_0_36px_rgba(34,211,238,0.3)]"
 							>
-								Your browser does not support the video tag.
-							</video>
-
-							<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
-
-							<div class="absolute inset-0 flex items-center justify-center">
-								<div
-									class="flex h-16 w-16 items-center justify-center rounded-full border border-cyan-200/40 bg-slate-950/70 text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.18)] transition duration-300 group-hover:scale-105 group-hover:border-cyan-100/70 group-hover:shadow-[0_0_36px_rgba(34,211,238,0.3)]"
+								<svg
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+									class="ml-1 h-6 w-6 fill-current"
 								>
-									<svg
-										viewBox="0 0 24 24"
-										aria-hidden="true"
-										class="ml-1 h-6 w-6 fill-current"
-									>
-										<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
-									</svg>
-								</div>
+									<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
+								</svg>
 							</div>
-
-							<p class="absolute left-6 top-6 text-xs font-medium uppercase tracking-[0.3em] text-cyan-100/75">
-								{video.number}
-							</p>
-						</button>
-					) : (
-						<div class="relative overflow-hidden border-b border-white/10 bg-slate-900/70">
-							<img
-								src={video.resolvedImage}
-								alt={`${video.title} thumbnail`}
-								class="h-60 w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-								loading="lazy"
-								decoding="async"
-							/>
-
-							<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
-
-							<div class="absolute inset-0 flex items-center justify-center">
-								<span
-									class="rounded-full border border-cyan-200/40 bg-slate-950/75 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.18)]"
-								>
-									Preview unavailable
-								</span>
-							</div>
-
-							<p class="absolute left-6 top-6 text-xs font-medium uppercase tracking-[0.3em] text-cyan-100/75">
-								{video.number}
-							</p>
 						</div>
-					)}
+
+						<p class="absolute left-6 top-6 text-xs font-medium uppercase tracking-[0.3em] text-cyan-100/75">
+							{video.number}
+						</p>
+					</button>
 
 					<div class="flex flex-1 flex-col p-6">
 						<h3 class="text-2xl font-semibold tracking-tight text-white">{video.title}</h3>
@@ -193,23 +148,15 @@ const videos = [
 						</div>
 
 						<div class="mt-auto pt-8">
-							{video.videoExists ? (
-								<button
-									type="button"
-									data-video-open
-									data-video-src={video.video}
-									data-video-title={video.title}
-									class="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-50 shadow-[0_0_24px_rgba(34,211,238,0.14)] transition duration-300 hover:border-cyan-200/70 hover:bg-cyan-300/15 hover:shadow-[0_0_36px_rgba(34,211,238,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-								>
-									View Video
-								</button>
-							) : (
-								<span
-									class="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-300"
-								>
-									Video unavailable
-								</span>
-							)}
+							<button
+								type="button"
+								data-video-open
+								data-video-src={video.video}
+								data-video-title={video.title}
+								class="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-50 shadow-[0_0_24px_rgba(34,211,238,0.14)] transition duration-300 hover:border-cyan-200/70 hover:bg-cyan-300/15 hover:shadow-[0_0_36px_rgba(34,211,238,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+							>
+								View Video
+							</button>
 						</div>
 					</div>
 				</article>
