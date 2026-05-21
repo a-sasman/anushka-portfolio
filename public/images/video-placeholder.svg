@@ -1,0 +1,22 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" rx="40" fill="#020617"/>
+  <rect width="1280" height="720" rx="40" fill="url(#bg)"/>
+  <circle cx="224" cy="158" r="150" fill="#22D3EE" fill-opacity="0.16"/>
+  <circle cx="1048" cy="562" r="190" fill="#0EA5E9" fill-opacity="0.16"/>
+  <rect x="120" y="110" width="1040" height="500" rx="32" fill="#0F172A" fill-opacity="0.84" stroke="rgba(255,255,255,0.12)"/>
+  <circle cx="640" cy="360" r="88" fill="#0F172A" stroke="#67E8F9" stroke-opacity="0.8" stroke-width="10"/>
+  <path d="M612 306V414L704 360L612 306Z" fill="#E0F2FE"/>
+  <text x="180" y="584" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="1.2">
+    Video Preview Placeholder
+  </text>
+  <text x="180" y="638" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="0.8">
+    Thumbnail shown when a course poster image has not been added yet.
+  </text>
+  <defs>
+    <linearGradient id="bg" x1="88" y1="52" x2="1200" y2="672" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="0.52" stop-color="#111827"/>
+      <stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+</svg>

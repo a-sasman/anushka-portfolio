@@ -2,6 +2,17 @@
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+const assetExists = (assetPath?: string) => {
+	if (!assetPath) {
+		return false;
+	}
+
+	const assetFile = fileURLToPath(new URL(`../../public${assetPath}`, import.meta.url));
+	return existsSync(assetFile);
+};
+
+const projectImageFallback = '/images/project-placeholder.svg';
+
 const projects = [
 	{
 		// Update `title` to change the project name shown in the left list and right card.
@@ -33,7 +44,7 @@ const projects = [
 		description:
 			'A daily L&D question bot designed to spark team reflection, conversation, and learning culture.',
 		tags: ['Power Automate', 'Teams', 'L&D', 'Bot'],
-		image: '/images/project-curious-bot.png',
+		image: projectImageFallback,
 		link: '#'
 	},
 	{
@@ -42,16 +53,14 @@ const projects = [
 		description:
 			'A matching-style interaction designed to make learning more engaging through play and visual feedback.',
 		tags: ['JavaScript', 'UX', 'Gamification', 'Learning'],
-		image: '/images/project-learning-game.png',
+		image: projectImageFallback,
 		link: '#'
 	}
 ].map((project, index) => {
-	const imageFile = fileURLToPath(new URL(`../../public${project.image}`, import.meta.url));
-
 	return {
 		...project,
 		number: String(index + 1).padStart(2, '0'),
-		imageExists: existsSync(imageFile)
+		imageExists: assetExists(project.image)
 	};
 });
 
@@ -151,26 +160,13 @@ const totalProjects = String(visibleProjects.length).padStart(2, '0');
 					<article class="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-[0_20px_50px_rgba(2,8,23,0.38)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-white/[0.07]">
 						<div class="grid gap-4 p-4 sm:p-5 lg:grid-cols-[minmax(170px,210px)_minmax(0,1fr)] lg:items-stretch sm:gap-5">
 							<div class="overflow-hidden rounded-[1.25rem] border border-white/10 bg-slate-900/70">
-								{project.imageExists ? (
-									<img
-										src={project.image}
-										alt={`${project.title} preview`}
-										class="h-44 w-full object-cover sm:h-48 lg:h-full lg:min-h-40"
-										loading="lazy"
-										decoding="async"
-									/>
-								) : (
-									<div class="flex h-44 items-end bg-[linear-gradient(145deg,_rgba(14,165,233,0.3),_rgba(15,23,42,0.92)_55%,_rgba(168,85,247,0.28))] p-4 sm:h-48 lg:h-full lg:min-h-40">
-										<div>
-											<p class="text-xs font-medium uppercase tracking-[0.35em] text-cyan-100/70">
-												Image Placeholder
-											</p>
-											<p class="mt-3 max-w-[12rem] text-base font-semibold text-white">
-												{project.title}
-											</p>
-										</div>
-									</div>
-								)}
+								<img
+									src={project.imageExists ? project.image : projectImageFallback}
+									alt={`${project.title} preview`}
+									class="h-44 w-full object-cover sm:h-48 lg:h-full lg:min-h-40"
+									loading="lazy"
+									decoding="async"
+								/>
 							</div>
 
 							<div class="flex min-w-0 flex-col justify-between">
