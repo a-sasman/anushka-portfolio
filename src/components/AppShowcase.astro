@@ -1,0 +1,89 @@
+---
+const solaUrl = 'https://sola-reflective-productivity-app.netlify.app/';
+const solaDetails = [
+	'Journal entries',
+	'Goals',
+	'Habit tracking',
+	'Book reflections',
+	'Weekly/monthly reviews'
+];
+---
+
+<section
+	id="app"
+	class="relative overflow-hidden border-t border-white/10 bg-slate-950 px-6 py-20 sm:px-8 lg:px-12"
+>
+	<div class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(110,231,183,0.1),_transparent_24%),radial-gradient(circle_at_82%_18%,_rgba(245,158,11,0.1),_transparent_22%),linear-gradient(180deg,_rgba(2,6,23,1),_rgba(15,23,42,0.97))]"></div>
+	<div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-emerald-200/40 to-transparent"></div>
+	<div class="absolute left-8 top-16 -z-10 h-40 w-40 rounded-full bg-emerald-300/10 blur-3xl"></div>
+
+	<div class="mx-auto max-w-7xl">
+		<div class="max-w-3xl">
+			<p class="text-sm font-medium uppercase tracking-[0.35em] text-emerald-100/70">
+				Featured App
+			</p>
+		</div>
+
+		<article
+			class="group relative isolate mt-10 overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_26px_70px_rgba(2,8,23,0.48)] transition duration-300 hover:-translate-y-1 hover:border-emerald-100/25"
+		>
+			<img
+				src="/images/sola-pebbles.png"
+				alt=""
+				class="absolute inset-0 h-full w-full object-cover object-center blur-[1.5px] transition duration-700 group-hover:scale-[1.03]"
+				loading="lazy"
+				decoding="async"
+			/>
+			<div class="absolute inset-0 bg-[linear-gradient(108deg,rgba(2,6,23,0.92)_15%,rgba(6,78,59,0.72)_54%,rgba(41,37,36,0.8)_100%)]"></div>
+			<div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/10"></div>
+
+			<div class="relative grid gap-6 px-6 py-7 sm:px-8 sm:py-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(250px,0.9fr)] lg:items-end lg:gap-10 lg:px-10 lg:py-9">
+				<div class="max-w-2xl">
+					<p class="text-xs font-medium uppercase tracking-[0.34em] text-stone-200/80 sm:text-sm">
+						Personal Growth & Reflective Journaling App
+					</p>
+					<h3 class="mt-4 text-4xl font-semibold tracking-[0.02em] text-white sm:text-5xl">
+						SOLA
+					</h3>
+					<p class="mt-4 max-w-xl text-sm leading-7 text-stone-100/88 sm:text-base">
+						A calm digital space designed for journaling, goal-setting, habit reflection,
+						book notes, and personal growth tracking.
+					</p>
+
+					<div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+						<a
+							href={solaUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex w-full items-center justify-center rounded-full bg-stone-100/92 px-5 py-3 text-sm font-semibold text-stone-900 shadow-[0_18px_32px_rgba(15,23,42,0.28)] transition duration-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-100 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:w-auto"
+						>
+							Enter Wellness Space
+						</a>
+						<span class="inline-flex w-fit items-center rounded-full border border-white/12 bg-black/15 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.24em] text-stone-100/80 backdrop-blur-sm">
+							Frontend Prototype
+						</span>
+					</div>
+				</div>
+
+				<div class="rounded-[1.5rem] border border-white/10 bg-black/18 p-5 shadow-[0_20px_40px_rgba(2,6,23,0.22)] backdrop-blur-md">
+					<p class="text-xs font-medium uppercase tracking-[0.32em] text-stone-200/72">
+						Inside SOLA
+					</p>
+					<ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+						{solaDetails.map((detail) => (
+							<li class="flex items-center gap-3 text-sm text-stone-100/88">
+								<span
+									class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-emerald-200/25 bg-emerald-100/10 text-emerald-100"
+									aria-hidden="true"
+								>
+									<span class="h-2 w-2 rounded-full bg-current"></span>
+								</span>
+								<span>{detail}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		</article>
+	</div>
+</section>
