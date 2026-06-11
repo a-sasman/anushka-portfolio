@@ -2,9 +2,10 @@
 const navItems = [
 	// Update `label` and `href` here when you add more showcase sections later.
 	{ label: 'Home', href: '#top' },
-	{ label: 'App', href: '#app' },
+	{ label: 'Learning Studio', href: '#learning-studio' },
 	{ label: 'Selected Works', href: '#projects' },
-	{ label: 'Video', href: '#video-creation' }
+	{ label: 'Video', href: '#video-creation' },
+	{ label: 'App', href: '#app' }
 ];
 ---
 
@@ -13,7 +14,7 @@ const navItems = [
 	class="fixed inset-x-0 top-4 z-50 px-4 sm:px-6 lg:px-10"
 >
 	<div class="mx-auto flex max-w-7xl justify-center sm:justify-end">
-		<div class="flex w-full max-w-[28rem] flex-wrap items-center justify-center gap-2 rounded-[1.5rem] border border-white/10 bg-slate-950/80 px-2 py-2 shadow-[0_18px_40px_rgba(2,6,23,0.28)] backdrop-blur-md sm:w-auto sm:max-w-none sm:justify-end sm:rounded-full">
+		<div class="flex w-full max-w-[42rem] flex-wrap items-center justify-center gap-2 rounded-[1.5rem] border border-white/10 bg-slate-950/80 px-2 py-2 shadow-[0_18px_40px_rgba(2,6,23,0.28)] backdrop-blur-md sm:w-auto sm:max-w-none sm:justify-end sm:rounded-full">
 			{navItems.map((item) => (
 				<a
 					href={item.href}
